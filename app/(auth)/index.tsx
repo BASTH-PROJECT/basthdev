@@ -95,7 +95,17 @@ export default function AuthScreen() {
   const onSignInWithGoogle = useCallback(async () => {
     try {
       setLoading(true);
-      const { createdSessionId, setActive } = await startGoogleOAuth();
+      // Build a redirect URL that works for both native and web.
+      // On native: onicashapp://oauth-native-callback
+      // On web: https://<domain>/oauth-native-callback
+      const redirectUrl = AuthSession.makeRedirectUri({
+        scheme: 'onicashapp',
+        path: 'oauth-native-callback',
+      });
+
+      console.log('Google OAuth redirectUrl', redirectUrl);
+
+      const { createdSessionId, setActive } = await startGoogleOAuth({ redirectUrl });
 
       if (createdSessionId && setActive) {
         await setActive({ session: createdSessionId });
