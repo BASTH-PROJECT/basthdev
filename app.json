@@ -1,0 +1,93 @@
+{
+  "expo": {
+    "name": "ONI Cash",
+    "slug": "ONI_Cash",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icons/adaptive-icon-white.png",
+    "scheme": "onicashapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/icons/adaptive-icon-white.png",
+        "backgroundImage": "./assets/icons/adaptive-icon-white.png",
+        "monochromeImage": "./assets/icons/adaptive-icon-white.png"
+      },
+      "edgeToEdgeEnabled": true,
+      "predictiveBackGestureEnabled": true,
+      "package": "my.id.basthdev.onicashapp",
+      "minSdkVersion": 21,
+      "targetSdkVersion": 34,
+      "permissions": [
+        "android.permission.READ_MEDIA_IMAGES",
+        "android.permission.READ_MEDIA_VIDEO",
+        "android.permission.READ_MEDIA_AUDIO",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.MANAGE_EXTERNAL_STORAGE"
+      ],
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            {
+              "scheme": "https",
+              "host": "*.clerk.accounts.dev"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        },
+        {
+          "action": "VIEW",
+          "data": [
+            {
+              "scheme": "onicashapp"
+            }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
+    },
+    "web": {
+      "output": "static",
+      "favicon": "./assets/icons/adaptive-icon-white.png",
+      "bundler": "metro",
+      "name": "ONI Cash - Personal Finance Tracker",
+      "shortName": "ONI Cash",
+      "description": "Track your income, expenses, and manage your finances with ease",
+      "themeColor": "#10b981",
+      "backgroundColor": "#ffffff",
+      "display": "standalone",
+      "orientation": "portrait",
+      "startUrl": "/",
+      "scope": "/",
+      "lang": "id-ID"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/icons/splash-icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain",
+          "backgroundColor": "#ffffff",
+          "dark": {
+            "backgroundColor": "#ffffff"
+          }
+        }
+      ],
+      "./plugins/withAndroidShortcuts"
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    }
+  }
+}
