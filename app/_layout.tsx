@@ -3,22 +3,40 @@ import { Redirect, Slot, usePathname } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import React from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Platform } from 'react-native';
 
-// Token cache for Clerk (recommended for Expo)
+// Platform-aware token cache
 const tokenCache = {
   async getToken(key: string) {
-    try {
-      return await SecureStore.getItemAsync(key);
-    } catch (err) {
-      console.warn('SecureStore getItemAsync error', err);
-      return null;
+    if (Platform.OS === 'web') {
+      try {
+        return localStorage.getItem(key);
+      } catch (err) {
+        console.warn('localStorage getItem error', err);
+        return null;
+      }
+    } else {
+      try {
+        return await SecureStore.getItemAsync(key);
+      } catch (err) {
+        console.warn('SecureStore getItemAsync error', err);
+        return null;
+      }
     }
   },
   async saveToken(key: string, value: string) {
-    try {
-      await SecureStore.setItemAsync(key, value);
-    } catch (err) {
-      console.warn('SecureStore setItemAsync error', err);
+    if (Platform.OS === 'web') {
+      try {
+        localStorage.setItem(key, value);
+      } catch (err) {
+        console.warn('localStorage setItem error', err);
+      }
+    } else {
+      try {
+        await SecureStore.setItemAsync(key, value);
+      } catch (err) {
+        console.warn('SecureStore setItemAsync error', err);
+      }
     }
   },
 };
