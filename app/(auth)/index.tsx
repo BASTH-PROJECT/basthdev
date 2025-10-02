@@ -95,15 +95,8 @@ export default function AuthScreen() {
   const onSignInWithGoogle = useCallback(async () => {
     try {
       setLoading(true);
-      // Use Expo proxy in Expo Go (no dev client). In dev client/standalone, use custom scheme.
-      const isExpoGo = Constants.appOwnership === 'expo';
-      const redirectUri = isExpoGo
-        ? (AuthSession.makeRedirectUri({ useProxy: true } as any) as string)
-        : AuthSession.makeRedirectUri({ scheme: 'onicashapp', path: 'oauth-callback' });
-      console.log('OAuth redirectUri =>', redirectUri);
-      const { createdSessionId, setActive } = await startGoogleOAuth({
-        redirectUrl: redirectUri,
-      });
+      const { createdSessionId, setActive } = await startGoogleOAuth();
+
       if (createdSessionId && setActive) {
         await setActive({ session: createdSessionId });
         router.replace('/');
